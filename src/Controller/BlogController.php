@@ -21,4 +21,16 @@ class BlogController extends AbstractController
             'owner' => 'Adeline',
             ]);
     }
+
+    /**
+     * @Route("/blog/show/{slug}", requirements={"slug"="[a-z0-9-]+"}, defaults={"slug"="Article Sans Titre"}, name="blog_article")
+     */
+    public function show($slug)
+    {
+
+        $slug = str_replace('-', ' ', $slug);
+        $slug = ucfirst($slug);
+
+        return $this->render('blog/show.html.twig', ['slug' =>$slug]);
+    }
 }
