@@ -65,10 +65,12 @@ class BlogController extends AbstractController
                 'No article with ' . $slug . ' title, found in article\'s table.'
             );
         }
+        $category = $article->getCategory();
 
         return $this->render('blog/show.html.twig',
             ['article' => $article,
-                'slug' => $slug]);
+                'slug' => $slug,
+            'category' => $category]);
     }
 
     /**
@@ -90,6 +92,8 @@ class BlogController extends AbstractController
             );
         }
 
+        $articles = $category->getArticles();
+/*
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
             ->findBy(['category' => $category], ['id'=>'DESC'], 3);
@@ -98,15 +102,12 @@ class BlogController extends AbstractController
             throw $this->createNotFoundException(
                 'No article found in article\'s table'
             );
-        }
+        } */
+
         foreach ($articles as $article) {
             $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
-
-            if (!$categoryName) {
-                throw $this
-                    ->createNotFoundException('No category has been set for this article');
-            }
         }
+
 
         return $this->render(
             'blog/category.html.twig',
@@ -114,7 +115,6 @@ class BlogController extends AbstractController
                 'articles' => $articles,
                 'category' => $category,
             ]);
-
 
     }
 }
