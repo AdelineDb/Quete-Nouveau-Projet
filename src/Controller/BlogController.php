@@ -71,35 +71,36 @@ class BlogController extends AbstractController
         return $this->render('blog/show.html.twig',
             ['article' => $article,
                 'slug' => $slug,
-                'category' => $category]);
+            'category' => $category]);
     }
 
     /**
      * @param string $categoryName The slugger
      *
-     * @Route("/blog/category/{categoryName}",
+     * @Route("/blog/category/{name}",
      *     name="blog_category")
      * @return Response A response instance
      */
-    public function showByCategory(Category $categoryName): Response
+    public function showByCategory(Category $category): Response
     {
+
         if (!$category) {
             throw $this->createNotFoundException(
-                'No article with ' . $categoryName . ' category, found.'
+                'No article with ' . $category . ' category, found.'
             );
         }
 
         $articles = $category->getArticles();
-        /*
-                $articles = $this->getDoctrine()
-                    ->getRepository(Article::class)
-                    ->findBy(['category' => $category], ['id'=>'DESC'], 3);
+/*
+        $articles = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy(['category' => $category], ['id'=>'DESC'], 3);
 
-                if (!$articles) {
-                    throw $this->createNotFoundException(
-                        'No article found in article\'s table'
-                    );
-                } */
+        if (!$articles) {
+            throw $this->createNotFoundException(
+                'No article found in article\'s table'
+            );
+        } */
 
         foreach ($articles as $article) {
             $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
