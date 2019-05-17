@@ -34,8 +34,10 @@ class BlogController extends AbstractController
         foreach ($articles as $article) {
             $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
         }
+
         return $this->render('blog/index.html.twig', [
-            'owner' => 'Adeline', 'articles' => $articles
+            'owner' => 'Adeline',
+            'articles' => $articles
         ]);
     }
 
@@ -43,7 +45,6 @@ class BlogController extends AbstractController
      * @param string $slug
      * @Route("/blog/show/{slug}",
      *     requirements={"slug"="[a-z0-9-]+"},
-     *     defaults={"slug"= null},
      *     name="blog_article")
      * @return Response
      */
@@ -70,7 +71,7 @@ class BlogController extends AbstractController
         return $this->render('blog/show.html.twig',
             ['article' => $article,
                 'slug' => $slug,
-            'category' => $category]);
+                'category' => $category]);
     }
 
     /**
@@ -80,12 +81,8 @@ class BlogController extends AbstractController
      *     name="blog_category")
      * @return Response A response instance
      */
-    public function showByCategory(?string $categoryName): Response
+    public function showByCategory(Category $categoryName): Response
     {
-        $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneBy(['name' => $categoryName]);
-
         if (!$category) {
             throw $this->createNotFoundException(
                 'No article with ' . $categoryName . ' category, found.'
@@ -93,16 +90,16 @@ class BlogController extends AbstractController
         }
 
         $articles = $category->getArticles();
-/*
-        $articles = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findBy(['category' => $category], ['id'=>'DESC'], 3);
+        /*
+                $articles = $this->getDoctrine()
+                    ->getRepository(Article::class)
+                    ->findBy(['category' => $category], ['id'=>'DESC'], 3);
 
-        if (!$articles) {
-            throw $this->createNotFoundException(
-                'No article found in article\'s table'
-            );
-        } */
+                if (!$articles) {
+                    throw $this->createNotFoundException(
+                        'No article found in article\'s table'
+                    );
+                } */
 
         foreach ($articles as $article) {
             $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
