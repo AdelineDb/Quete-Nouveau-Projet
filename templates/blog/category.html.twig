@@ -9,7 +9,7 @@
             <h2>{{ article.id }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
             <p>{{ article.content }}</p>
         </div>
-        <a href="{{ path('blog_article',{'slug': article.url}) }}">Go !</a>
+        <a href="{{ path('blog_article',{'slug': article.url, 'id': article.id}) }}">Go !</a>
     {% else %}
         Aucun article trouvé.
     {% endfor %}

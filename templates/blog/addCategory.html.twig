@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+        <h4> {{ message }} </h4>
+    {% endfor %}
+    <h3>Les catégories du site</h3>
+
+    <table>
+        <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        </tr>
+        {% for cat in category %}
+            <tr>
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Ajouter une nouvelle catégorie</h3>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}

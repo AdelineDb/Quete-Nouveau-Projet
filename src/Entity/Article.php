@@ -85,4 +85,10 @@ class Article
 
         return $this;
     }
+
+    public function getUrl() : string
+    {
+        return preg_replace('/ /', '-', strtolower($this->getTitle()));
+
+    }
 }

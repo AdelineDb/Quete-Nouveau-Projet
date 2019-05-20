@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\CategoryType;
 use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ArticleSearchType;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class BlogController extends AbstractController
@@ -16,7 +19,7 @@ class BlogController extends AbstractController
      * @Route("/blog", name="blog_index")
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         /* return new Response(
              '<html><body>Blog Index</body></html>'
@@ -35,20 +38,27 @@ class BlogController extends AbstractController
             $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
         }
 
+        $form = $this->createForm(
+            ArticleSearchType::class,
+            null,
+            ['method' => Request::METHOD_GET]
+        );
+
         return $this->render('blog/index.html.twig', [
             'owner' => 'Adeline',
-            'articles' => $articles
+            'articles' => $articles,
+            'form' => $form->createView()
         ]);
     }
 
     /**
      * @param string $slug
-     * @Route("/blog/show/{slug}",
+     * @Route("/blog/show/{slug}-{id}",
      *     requirements={"slug"="[a-z0-9-]+"},
      *     name="blog_article")
      * @return Response
      */
-    public function show(?string $slug): Response
+    public function show(?string $slug, int $id): Response
     {
         if (!$slug) {
             throw $this
@@ -71,7 +81,7 @@ class BlogController extends AbstractController
         return $this->render('blog/show.html.twig',
             ['article' => $article,
                 'slug' => $slug,
-            'category' => $category]);
+                'category' => $category]);
     }
 
     /**
@@ -91,21 +101,16 @@ class BlogController extends AbstractController
         }
 
         $articles = $category->getArticles();
-/*
-        $articles = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findBy(['category' => $category], ['id'=>'DESC'], 3);
+        /*
+                $articles = $this->getDoctrine()
+                    ->getRepository(Article::class)
+                    ->findBy(['category' => $category], ['id'=>'DESC'], 3);
 
-        if (!$articles) {
-            throw $this->createNotFoundException(
-                'No article found in article\'s table'
-            );
-        } */
-
-        foreach ($articles as $article) {
-            $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
-        }
-
+                if (!$articles) {
+                    throw $this->createNotFoundException(
+                        'No article found in article\'s table'
+                    );
+                } */
 
         return $this->render(
             'blog/category.html.twig',
