@@ -9,13 +9,12 @@
 
     <table>
         <tr>
-        <th>ID</th>
-        <th>Nom</th>
+            <th>ID</th>
+            <th>Nom</th>
         </tr>
         {% for cat in category %}
-            <tr>
-                <td>{{ cat.id }}</td>
-                <td>{{ cat.name }}</td>
+            <td>{{ cat.id }}</td>
+            <td><a href="{{ path('blog_category',{'name':cat.name}) }}">{{ cat.name }}</a></td>
             </tr>
         {% endfor %}
     </table>

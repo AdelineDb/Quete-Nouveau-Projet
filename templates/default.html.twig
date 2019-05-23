@@ -5,8 +5,18 @@
 {% block body %}
     <h1>Bienvenue sur mon blog</h1>
 
+    <div>
     <a href="{{ path('blog_index') }}">
-        All articles
+        Tous les articles
     </a>
+    </div>
+
+    <div>
+    <a href="{{ path('blog_categories') }}">Toutes les catégories</a>
+    </div>
+
+    <div>
+    <a href="{{ path('tag_index') }}">Tous les tags</a>
+    </div>
 
 {% endblock %}
