@@ -12,7 +12,18 @@
     </div>
 
     <a href="{{ path('app_index') }}">
-        Back to homepage.
-    </a>
+        Back to homepage</a>
+
+    <div>
+
+        <strong>Tags :</strong>
+        <ul>
+            {% for tag in article.tags %}
+                <a href="{{ path('tag_show', {'name': tag.name}) }}"> <li>{{ tag.name }} </li> </a>
+            {% else %}
+                <li>No tags for this article</li>
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}
