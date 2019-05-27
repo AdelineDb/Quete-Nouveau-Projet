@@ -8,7 +8,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Category;
 use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
 {
-
     /**
      * @Route("/blog/category", name="blog_categories")
      */

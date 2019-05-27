@@ -51,7 +51,7 @@ class Tag
     }
 
     /**
-     * @return Collection|Article[]
+     * @return string
      */
     public function getArticles(): Collection
     {

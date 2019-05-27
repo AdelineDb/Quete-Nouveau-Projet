@@ -47,7 +47,7 @@ class BlogController extends AbstractController
         return $this->render('blog/index.html.twig', [
             'owner' => 'Adeline',
             'articles' => $articles,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -77,11 +77,14 @@ class BlogController extends AbstractController
             );
         }
         $category = $article->getCategory();
+        $tags = $article->getTags();
 
         return $this->render('blog/show.html.twig',
             ['article' => $article,
                 'slug' => $slug,
-                'category' => $category]);
+                'category' => $category,
+                'tags' => $tags]);
+
     }
 
     /**

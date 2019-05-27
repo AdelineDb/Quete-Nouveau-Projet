@@ -6,7 +6,7 @@
     <h2>All articles from category {{ category.name }} : </h2>
     {% for article in articles %}
         <div>
-            <h2>{{ article.id }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+            <h2>{{ article.id }} / {{ article.title }} </h2> <h4>- Category : {{ article.category.name }}</h4>
             <p>{{ article.content }}</p>
         </div>
         <a href="{{ path('blog_article',{'slug': article.url, 'id': article.id}) }}">Go !</a>

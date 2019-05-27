@@ -40,6 +40,12 @@ class Article
      */
     private $tags;
 
+    public function __toString()
+    {
+
+        return $this->title;
+}
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -50,17 +56,17 @@ class Article
         return $this->id;
     }
 
-    public function getString(): ?string
+  /*  public function getString(): ?string
     {
-        return $this->string;
+        return $this->string();
     }
 
     public function setString(string $string): self
     {
-        $this->string = $string;
+        $res = $this->string();
 
-        return $this;
-    }
+        return $res;
+    } */
 
     public function getTitle(): ?string
     {
