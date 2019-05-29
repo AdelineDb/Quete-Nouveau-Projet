@@ -1,0 +1,18 @@
+@import "vars";
+@import "~bootstrap";
+
+/* assets/css/app.css */
+
+body {
+    background-color: $secondary-color;
+}
+
+a {
+    color: $warm-color;
+    font-weight: bold;
+}
+
+btn {
+
+    background-color: $warm-color;
+}

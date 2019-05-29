@@ -25,6 +25,7 @@ class TagController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/new", name="tag_new", methods={"GET","POST"})
      */
@@ -89,7 +90,7 @@ class TagController extends AbstractController
      */
     public function delete(Request $request, Tag $tag): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $tag->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($tag);
             $entityManager->flush();
