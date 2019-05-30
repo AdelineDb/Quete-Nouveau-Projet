@@ -36,6 +36,7 @@ class BlogController extends AbstractController
         }
         foreach ($articles as $article) {
             $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
+            $article->url = strtolower(str_replace('.', '', ucwords($article->url)));
         }
 
         $form = $this->createForm(
