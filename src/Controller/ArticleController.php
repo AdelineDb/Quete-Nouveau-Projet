@@ -63,12 +63,13 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Article $article): Response
+    public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setSlug($slugify->generate($article->getTitle()));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index', [
