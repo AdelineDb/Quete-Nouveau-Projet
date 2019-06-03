@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Création d'article{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+{% block body %}
+
+    <h1>Cher administrateur,</h1>
+
+    Un nouvel article a été créé !
+    Titre {{ article.title }}
+    <a href="{{ url('article_show', {'slug': article.slug}) }}">Lire l'article</a>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+<script>
+
+</script>
+</body>
+</html>

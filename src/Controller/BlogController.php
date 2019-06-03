@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Tag;
 use App\Form\CategoryType;
 use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,10 +35,6 @@ class BlogController extends AbstractController
                 'No article found in article\'s table'
             );
         }
-        foreach ($articles as $article) {
-            $article->url = preg_replace('/ /', '-', strtolower($article->getTitle()));
-            $article->url = strtolower(str_replace('.', '', ucwords($article->url)));
-        }
 
         $form = $this->createForm(
             ArticleSearchType::class,
@@ -54,35 +51,18 @@ class BlogController extends AbstractController
 
     /**
      * @param string $slug
-     * @Route("/blog/show/{slug}-{id}",
+     * @Route("/blog/show/{slug}/{id}",
      *     requirements={"slug"="[a-z0-9-]+"},
      *     name="blog_article")
      * @return Response
      */
-    public function show(?string $slug, int $id): Response
+    public function show(Article $article, int $id): Response
     {
-        if (!$slug) {
-            throw $this
-                ->createNotFoundException('No Slug');
-        }
-
-        $slug = str_replace('-', ' ', ucwords($slug));
-
-        $article = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findOneBy(['title' => mb_strtolower($slug)]);
-
-        if (!$article) {
-            throw $this->createNotFoundException(
-                'No article with ' . $slug . ' title, found in article\'s table.'
-            );
-        }
         $category = $article->getCategory();
         $tags = $article->getTags();
 
         return $this->render('blog/show.html.twig',
             ['article' => $article,
-                'slug' => $slug,
                 'category' => $category,
                 'tags' => $tags]);
 

@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -41,6 +41,14 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            $message = (new \Swift_Message('Un article a été ajouté'))
+                ->setFrom('send@example.com')
+                ->setTo('recipient@example.com')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('article/email/notification.html.twig', ['article' => $article]));
+//faire un service mettre les info de setage ds la class et mettre dans les parentheses du send les info
+            $mailer->send($message);
+
             return $this->redirectToRoute('article_index');
         }
 
@@ -51,7 +59,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     * @Route("/{slug}", name="article_show", methods={"GET"})
      */
     public function show(Article $article): Response
     {
@@ -61,7 +69,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="article_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
@@ -73,7 +81,7 @@ class ArticleController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index', [
-                'id' => $article->getId(),
+                'slug' => $article->getSlug(),
             ]);
         }
 
@@ -88,7 +96,7 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();

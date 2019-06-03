@@ -20,7 +20,7 @@
             <h4> - Contenu </h4>
             <p>{{ article.content }}</p>
         </div>
-        <a class="btn btn-primary" href="{{ path('blog_article',{'slug': article.url, 'id': article.id}) }}">Go !</a>
+        <a class="btn btn-primary" href="{{ path('blog_article',{'slug': article.slug, 'id': article.id}) }}">Go !</a>
     {% else %}
         Aucun article trouvé.
     {% endfor %}
