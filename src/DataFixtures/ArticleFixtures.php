@@ -11,6 +11,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Service\Slugify;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,7 +26,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class, UserFixtures::class];
     }
 
     public function load(ObjectManager $manager)
@@ -38,9 +39,10 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
             $article->setContent($faker->paragraph(7));
             $article->setSlug($this->slug->generate($article->getTitle()));
 
+
             $manager->persist($article);
             $article->setCategory($this->getReference('category_' . rand(0, 5)));
-
+            $article->setAuthor($this->getReference('author_'. 1));
             $manager->flush();
 
         }
