@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Tag;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,12 +19,13 @@ class ArticleType extends AbstractType
             ->add('content')
             ->add('category', null, ['choice_label' => 'name'])
             ->add('tags', EntityType::class, [
-                    'class' => Tag::class,
-                    'choice_label' => 'name',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'by_reference' => false,]
-            );
+                'class' => Tag::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'by_reference' => false])
+            ->add('author', null, ['choice_label' => 'email']
+                   );
     }
 
     public function configureOptions(OptionsResolver $resolver)

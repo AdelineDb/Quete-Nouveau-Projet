@@ -6,27 +6,37 @@ use App\Service\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @UniqueEntity("title", message="Ce titre existe déjà")
  */
 class Article
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ ne peut pas rester vide")
+     * @Assert\Length(max=255, maxMessage="Le titre est trop long")
      */
 
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Ce champ ne peut pas rester vide")
+     * @Assert\Regex(
+     *     pattern="[digital]",
+     *     match=false,
+     *     message="en français, il faut dire numérique")
      */
     private $content;
 
@@ -56,7 +66,7 @@ class Article
     {
 
         return $this->title;
-}
+    }
 
     public function __construct()
     {
@@ -68,17 +78,17 @@ class Article
         return $this->id;
     }
 
-  /*  public function getString(): ?string
-    {
-        return $this->string();
-    }
+    /*  public function getString(): ?string
+      {
+          return $this->string();
+      }
 
-    public function setString(string $string): self
-    {
-        $res = $this->string();
+      public function setString(string $string): self
+      {
+          $res = $this->string();
 
-        return $res;
-    } */
+          return $res;
+      } */
 
     public function getTitle(): ?string
     {
@@ -116,7 +126,7 @@ class Article
         return $this;
     }
 
-    public function getUrl() : string
+    public function getUrl(): string
     {
         return preg_replace('/ /', '-', strtolower($this->getTitle()));
 
