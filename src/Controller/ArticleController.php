@@ -23,7 +23,7 @@ class ArticleController extends AbstractController
     {
 
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll(),
+            'articles' => $articleRepository->findAllWithCategoriesAndTagsAndAuthors(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class ArticleController extends AbstractController
                 ->setTo('recipient@example.com')
                 ->setContentType('text/html')
                 ->setBody($this->renderView('article/email/notification.html.twig', ['article' => $article]));
-//faire un service mettre les info de setage ds la class et mettre dans les parentheses du send les info
+            //faire un service mettre les info de setage ds la class et mettre dans les parentheses du send les info
             $mailer->send($message);
 
             return $this->redirectToRoute('article_index');

@@ -13,7 +13,10 @@
                 <th>Title</th>
                 <th>Content</th>
                 <th>Slug</th>
-                <th>actions</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Tags</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +27,12 @@
                 <td>{{ article.content }}</td>
                 <td>{{ article.slug }}</td>
                 <td>{{ article.author.email }}</td>
+                <td>{{ article.category.name }}</td>
+                <td>
+                {% for tag in article.tags %}
+                {{ tag.name }}
+                {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('article_show', {'slug': article.slug}) }}">show</a>
                     <a href="{{ path('article_edit', {'slug': article.slug}) }}">edit</a>

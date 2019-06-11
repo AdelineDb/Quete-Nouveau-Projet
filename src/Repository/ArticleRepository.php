@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -18,6 +19,32 @@ class ArticleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Article::class);
     }
+
+    public function findAllWithCategoriesAndAuthors()
+    {
+        $qb = $this->createQueryBuilder('a')//table en cours
+            ->innerJoin('a.category', 'c')//table en cours avec le nom de la méthode et l'alias pour la table de la méthode
+            ->innerJoin('a.author', 'b')
+            ->addSelect('c')
+            ->addSelect('b')
+            ->getQuery();
+
+
+        return $qb->execute();
+    }
+
+    public function findAllWithCategoriesAndTagsAndAuthors()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT a, c, b, t FROM App\Entity\Article a 
+        INNER JOIN a.category c 
+        INNER JOIN a.author b 
+        LEFT JOIN a.tags t');
+
+        return $query->execute();
+
+    }
+
 
     // /**
     //  * @return Article[] Returns an array of Article objects
