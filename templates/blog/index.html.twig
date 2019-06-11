@@ -14,7 +14,7 @@
             <h4> - Category </h4>
             {{ article.category.name }}
             <h4> - Tags </h4>
-            {% for tag in tags %}
+            {% for tag in article.tags %}
                 {{ tag.name }}
             {% endfor %}
             <h4> - Contenu </h4>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Service\Slugify;
@@ -75,17 +76,20 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
+        if ( $this->getUser() === $article->getAuthor())
+        {
+            $form = $this->createForm(ArticleType::class, $article);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setSlug($slugify->generate($article->getTitle()));
-            $this->getDoctrine()->getManager()->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $article->setSlug($slugify->generate($article->getTitle()));
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('article_index', [
-                'slug' => $article->getSlug(),
-            ]);
-        }
+                return $this->redirectToRoute('article_index', [
+                    'slug' => $article->getSlug(),
+                ]);
+            }
+        } else throw $this->createAccessDeniedException();
 
         return $this->render('article/edit.html.twig', [
             'article' => $article,

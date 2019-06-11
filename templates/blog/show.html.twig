@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block body %}
+
+    {% if is_granted('ROLE_AUTHOR') %}
+        <a href="{{ path('article_edit', {'slug': article.slug, 'id': article.id} ) }}">Éditer</a>
+    {%endif%}
     <div>
         <h1>Article's title : {{ article.title }}</h1>
         <h2>Category : {{ category.name }}</h2>
