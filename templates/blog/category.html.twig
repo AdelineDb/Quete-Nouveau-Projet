@@ -13,8 +13,11 @@
     {% else %}
         Aucun article trouvé.
     {% endfor %}
+
+    {{ include('blog/deleteCategory_form.html.twig') }}
+
     <a href="{{ path('app_index') }}">
-        Back to homepage.
+        Back to homepage
     </a>
 
 {% endblock %}

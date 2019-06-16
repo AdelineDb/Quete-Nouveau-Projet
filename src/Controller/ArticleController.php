@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Service\Slugify;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +31,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
     {
@@ -43,6 +45,8 @@ class ArticleController extends AbstractController
 
             $entityManager->persist($article);
             $entityManager->flush();
+
+            $this->addFlash('success', 'L\'article a bien été ajouté');
 
             $message = (new \Swift_Message('Un article a été ajouté'))
                 ->setFrom('send@example.com')
@@ -85,6 +89,8 @@ class ArticleController extends AbstractController
                 $article->setSlug($slugify->generate($article->getTitle()));
                 $this->getDoctrine()->getManager()->flush();
 
+                $this->addFlash('success', 'L\'article a bien été modifié');
+
                 return $this->redirectToRoute('article_index', [
                     'slug' => $article->getSlug(),
                 ]);
@@ -106,6 +112,8 @@ class ArticleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'L\'article a bien été supprimé');
         }
 
         return $this->redirectToRoute('article_index');

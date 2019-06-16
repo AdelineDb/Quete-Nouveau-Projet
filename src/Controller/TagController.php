@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/tag")
@@ -17,6 +18,7 @@ class TagController extends AbstractController
 {
     /**
      * @Route("/", name="tag_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(TagRepository $tagRepository): Response
     {
@@ -39,6 +41,7 @@ class TagController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tag);
             $entityManager->flush();
+            $this->addFlash('success', 'Un nouveau tag a été ajouté');
 
             return $this->redirectToRoute('tag_index');
         }
@@ -74,6 +77,8 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Le tag a été modifié');
+
             return $this->redirectToRoute('tag_index', [
                 'id' => $tag->getId(),
             ]);
@@ -94,6 +99,8 @@ class TagController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($tag);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'Le tag a bien été supprimé');
         }
 
         return $this->redirectToRoute('tag_index');

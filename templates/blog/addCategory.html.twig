@@ -22,7 +22,9 @@
         </tr>
         {% for cat in category %}
             <td>{{ cat.id }}</td>
-            <td><a href="{{ path('blog_category',{'name':cat.name}) }}">{{ cat.name }}</a></td>
+            <td>{{ cat.name }}</td>
+            <td><a href="{{ path('blog_category',{'name':cat.name}) }}">Show</a></td>
+            <td> <a class="" href="{{ path('blog_category_edit', {'id': cat.id}) }}">Edit</a></td>
             </tr>
         {% endfor %}
     </table>

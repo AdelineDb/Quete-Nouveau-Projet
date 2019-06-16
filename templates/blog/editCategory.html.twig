@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+
+{% block title %}Edit Article{% endblock %}
+
+{% block body %}
+    <h1>Edit Category</h1>
+
+    <div>
+        {{ include('blog/addCategory.html.twig', {'button_label': 'Update'}) }}
+        {{ include('blog/deleteCategory_form.html.twig') }}
+    </div>
+
+    <a href="{{ path('article_index') }}">back to list</a>
+{% endblock %}
+
