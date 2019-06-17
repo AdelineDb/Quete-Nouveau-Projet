@@ -80,7 +80,7 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
-        if ( $this->getUser() === $article->getAuthor())
+        if ( $this->getUser() === $article->getAuthor() || $this->isGranted('ROLE_ADMIN'))
         {
             $form = $this->createForm(ArticleType::class, $article);
             $form->handleRequest($request);
