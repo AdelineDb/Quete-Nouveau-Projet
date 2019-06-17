@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categories{% endblock %}
-
 {% block body %}
+
+
     <h2>All articles from category {{ category.name }} : </h2>
     {% for article in articles %}
         <div>
@@ -13,8 +13,6 @@
     {% else %}
         Aucun article trouvé.
     {% endfor %}
-
-    {{ include('blog/deleteCategory_form.html.twig') }}
 
     <a href="{{ path('app_index') }}">
         Back to homepage

@@ -40,3 +40,4 @@ security:
 
     access_control:
         - { path: ^/article, roles: ROLE_AUTHOR }
+        - { path: ^/category, roles: ROLE_ADMIN }

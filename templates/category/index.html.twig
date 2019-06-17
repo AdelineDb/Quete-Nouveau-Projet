@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>Les catégories du site</h3>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+        </tr>
+        {% for cat in category %}
+            <tr>
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.name }}</td>
+                <td><a href="{{ path('category_show',{'id':cat.id}) }}">Show</a></td>
+                <td><a class="" href="{{ path('category_edit', {'id': cat.id}) }}">Edit</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

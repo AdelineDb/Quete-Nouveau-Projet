@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>Ajouter une nouvelle catégorie</h3>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}

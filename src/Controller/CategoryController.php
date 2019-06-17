@@ -10,19 +10,36 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @Route("/category", name="category_")
+ */
+
 class CategoryController extends AbstractController
 {
+
     /**
-     * @Route("/blog/category", name="blog_categories")
+     * @Route("/", name="index", methods={"GET"})
+     */
+    public function index(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('category/index.html.twig', [
+            'category' => $categoryRepository->findAll(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/add", name="add", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function addNewCategory(Request $request): Response
+    public function add(Request $request): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -41,7 +58,7 @@ class CategoryController extends AbstractController
             ->getRepository(Category::class)
             ->findAll();
 
-        return $this->render('blog/addCategory.html.twig', [
+        return $this->render('blog/new.html.twig', [
             'category' => $category,
             //'articles' => $articles,
             'form' => $form->createView()
@@ -49,11 +66,20 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="show", methods={"GET"})
+     */
+    public function show(Category $category): Response
+    {
+        return $this->render('category/show.html.twig', [
+            'category' => $category,
+        ]);
+    }
+
+    /**
      * @param Request $request
      * @param Category $category
-     * @Route ("/blog/category/edit/{id}", name="blog_category_edit", methods={"GET", "POST"})
+     * @Route ("/edit/{id}", name="edit", methods={"GET", "POST"})
      * @return Response
-     * @IsGranted("ROLE_ADMIN")
      */
 
     public function edit(Request $request, Category $category): Response
@@ -70,14 +96,13 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('blog_category');
         } else throw $this->createAccessDeniedException();
 
-        return $this->render('blog/editCategory.html.twig', [
+        return $this->render('blog/edit.html.twig', [
             'category' => $category,
             'form' => $form->createView()]);
 
     }
     /**
-     * @Route("/blog/category/delete/{id}", name="blog_category_delete", methods={"GET", "POST"})
-     * @IsGranted("ROLE_ADMIN")
+     * @Route("/delete/{id}", name="delete", methods={"GET", "POST"})
      */
     public function delete(Request $request, Category $category): Response
     {
