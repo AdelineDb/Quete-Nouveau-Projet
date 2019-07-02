@@ -36,8 +36,7 @@ class CategoryController extends AbstractController
 
 
     /**
-     * @Route("/add", name="add", methods={"POST"})
-     * @IsGranted("ROLE_ADMIN")
+     * @Route("/add", name="add", methods={"GET","POST"})
      */
     public function add(Request $request): Response
     {
@@ -66,7 +65,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show(Category $category): Response
     {
@@ -78,10 +77,9 @@ class CategoryController extends AbstractController
     /**
      * @param Request $request
      * @param Category $category
-     * @Route ("/edit/{id}", name="edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
      * @return Response
      */
-
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
@@ -94,12 +92,11 @@ class CategoryController extends AbstractController
             $this->addFlash('success', 'L\'article a bien été modifié');
 
             return $this->redirectToRoute('blog_category');
-        } else throw $this->createAccessDeniedException();
+        } //else throw $this->createAccessDeniedException();
 
-        return $this->render('blog/edit.html.twig', [
+        return $this->render('category/edit.html.twig', [
             'category' => $category,
             'form' => $form->createView()]);
-
     }
     /**
      * @Route("/delete/{id}", name="delete", methods={"GET", "POST"})

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\User;
 use App\Form\ArticleType;
+use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Service\Slugify;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +75,7 @@ class ArticleController extends AbstractController
     {
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'isFavorite' => $this->getUser()->isFavorite($article)
         ]);
     }
 
@@ -80,8 +84,7 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
-        if ( $this->getUser() === $article->getAuthor() || $this->isGranted('ROLE_ADMIN'))
-        {
+        if ($this->getUser() === $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
             $form = $this->createForm(ArticleType::class, $article);
             $form->handleRequest($request);
 
@@ -118,4 +121,23 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
+
+    /**
+     * @Route("/{id}/favorite", name="article_favorite", methods={"GET","POST"})
+     */
+    public function favorite(Request $request, Article $article, ObjectManager $entityManager, User $user)
+    {
+        if ($this->getUser()->getFavorites()->contains($article)) {
+            $this->getUser()->removeFavorite($article);
+        } else {
+            $this->getUser()->addFavorite($article);
+        }
+
+        $entityManager->flush();
+
+        return $this->json([
+            'isFavorite' => $this->getUser()->isFavorite($article)
+        ]);
+    }
 }
+

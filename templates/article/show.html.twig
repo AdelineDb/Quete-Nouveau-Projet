@@ -7,18 +7,41 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ article.content }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ article.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ article.title }}</td>
+        </tr>
+        <tr>
+            <th>Content</th>
+            <td>{{ article.content }}</td>
+        </tr>
+        <tr>
+            <script>
+                function addToFavorite() {
+                    fetch('{{ path('article_favorite', {'id': article.id}) }}')
+                        .then(response => response.json())
+                        .then(json => {
+                            let favoriteElt = document.getElementById('favorite');
+                            if (json.isFavorite) {
+                                favoriteElt.classList.remove('far');
+                                favoriteElt.classList.add('fas');
+                            }
+                            else {
+                                favoriteElt.classList.remove('fas');
+                                favoriteElt.classList.add('far');
+                            }
+                        });
+                }
+            </script>
+            <th>Favorite</th>
+            <td><a onclick="addToFavorite()">
+                    <i id="favorite" class="{{ app.user.isFavorite(article) ? 'fas' : 'far' }} fa-heart"></i>
+                </a></td>
+        </tr>
         </tbody>
     </table>
 

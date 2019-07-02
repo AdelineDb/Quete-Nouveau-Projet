@@ -62,6 +62,12 @@ class Article
      */
     private $author;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="favorites")
+     */
+    private $user_favorite;
+
+
     public function __toString()
     {
 
@@ -71,6 +77,7 @@ class Article
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->user_favorite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +187,38 @@ class Article
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getUserFavorite(): ?User
+    {
+        return $this->user_favorite;
+    }
+
+    public function setUserFavorite(?User $user_favorite): self
+    {
+        $this->user_favorite = $user_favorite;
+
+        return $this;
+    }
+
+    public function addUserFavorite(User $userFavorite): self
+    {
+        if (!$this->user_favorite->contains($userFavorite)) {
+            $this->user_favorite[] = $userFavorite;
+            $userFavorite->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFavorite(User $userFavorite): self
+    {
+        if ($this->user_favorite->contains($userFavorite)) {
+            $this->user_favorite->removeElement($userFavorite);
+            $userFavorite->removeFavorite($this);
+        }
 
         return $this;
     }

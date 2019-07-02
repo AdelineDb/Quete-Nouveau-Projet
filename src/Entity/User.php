@@ -40,9 +40,15 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", inversedBy="user_favorite")
+     */
+    private $favorites;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,7 +75,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -96,7 +102,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -131,6 +137,10 @@ class User implements UserInterface
         return $this->articles;
     }
 
+    /**
+     * @param Article $article
+     * @return User
+     */
     public function addArticle(Article $article): self
     {
         if (!$this->articles->contains($article)) {
@@ -153,4 +163,38 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Article $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Article $favorite): self
+    {
+        if ($this->favorites->contains($favorite)) {
+            $this->favorites->removeElement($favorite);
+        }
+
+        return $this;
+    }
+
+
+    public function isFavorite(Article $favorite): bool
+    {
+        return ($this->favorites->contains($favorite));
+
+    }
+
 }
