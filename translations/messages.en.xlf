@@ -91,7 +91,7 @@
       </trans-unit>
       <trans-unit id="L23kToO" resname="article.slug">
         <source>article.slug</source>
-        <target>Slug/target>
+        <target>Slug</target>
       </trans-unit>
       <trans-unit id="jHzFINk" resname="article.author">
         <source>article.author</source>

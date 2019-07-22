@@ -17,7 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/article")
+ * @Route({"fr" : "/articles",
+ * "en": "articles",
+ *     "es": "articulos"})
  */
 class ArticleController extends AbstractController
 {
