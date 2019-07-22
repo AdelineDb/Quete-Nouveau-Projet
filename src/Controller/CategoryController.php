@@ -18,7 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/category", name="category_")
+ * @Route({"fr": "/categorie",
+ *     "en": "/category",
+ *     "es": "/categoria"}, name="category_")
  */
 
 class CategoryController extends AbstractController
@@ -36,7 +38,9 @@ class CategoryController extends AbstractController
 
 
     /**
-     * @Route("/add", name="add", methods={"GET","POST"})
+     * @Route({"fr": "/nouveau",
+     *     "en": "/new",
+     *     "es": "/crear"}, name="add", methods={"GET","POST"})
      */
     public function add(Request $request): Response
     {
@@ -77,7 +81,9 @@ class CategoryController extends AbstractController
     /**
      * @param Request $request
      * @param Category $category
-     * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
+     * @Route({"fr": "/modifier/{id}",
+     *     "en": "/edit/{id}",
+     *     "es": "/modificar/{id}"}, name="edit", methods={"GET", "POST"})
      * @return Response
      */
     public function edit(Request $request, Category $category): Response
@@ -91,7 +97,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash('success', 'L\'article a bien été modifié');
 
-            return $this->redirectToRoute('blog_category');
+            return $this->redirectToRoute('category_index');
         } //else throw $this->createAccessDeniedException();
 
         return $this->render('category/edit.html.twig', [
@@ -99,7 +105,9 @@ class CategoryController extends AbstractController
             'form' => $form->createView()]);
     }
     /**
-     * @Route("/delete/{id}", name="delete", methods={"GET", "POST"})
+     * @Route({"fr": "/supprimer/{id}",
+     *     "en": "/delete/{id}",
+     *     "es": "/eliminar/{id}"}, name="delete", methods={"GET", "POST"})
      */
     public function delete(Request $request, Category $category): Response
     {

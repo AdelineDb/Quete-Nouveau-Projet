@@ -10,13 +10,13 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Slug</th>
-                <th>Author</th>
-                <th>Category</th>
+                <th>{{ 'article.title' | trans}}</th>
+                <th>{{ 'article.content' | trans }}</th>
+                <th>{{ 'article.slug' | trans}}</th>
+                <th>{{ 'article.author' | trans }}</th>
+                <th>{{ 'article.category' | trans }}</th>
                 <th>Tags</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,13 +34,13 @@
                 {% endfor %}
                 </td>
                 <td>
-                    <a href="{{ path('article_show', {'slug': article.slug}) }}">show</a>
-                    <a href="{{ path('article_edit', {'slug': article.slug}) }}">edit</a>
+                    <a href="{{ path('article_show', {'slug': article.slug}) }}">{{ 'article.show' | trans }}</a>
+                    <a href="{{ path('article_edit', {'slug': article.slug}) }}">{{ 'article.edit' | trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">{{ 'no.article' |trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

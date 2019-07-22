@@ -11,10 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="app_index")
+     * @Route({
+     *     "fr": "/",
+     *     "en": "/",
+     *     "es": "/"
+     * }, name="app_index")
      */
     public function index()
     {
         return $this->render('default.html.twig');
+
+    }
+
+    public function dispatch(Request $request)
+    {
+        $locale = $request->getLocale();
+
+        return $this->redirectToRoute('app_index', ['_locale'=> $locale]);
     }
 }

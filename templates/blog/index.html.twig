@@ -1,31 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ owner }}'s blog index
+    {{ 'blog.index' | trans }}
 {% endblock %}
 
 
 {% block body %}
 
-    <h2>All articles from article's table : </h2>
+    <h2>{{ 'all.articles' | trans }}</h2>
     {% for article in articles %}
         <div>
             <h2>{{ loop.index }} / {{ article.title }} </h2>
-            <h4> - Category </h4>
+            <h4> - {{ 'category.name' | trans }} </h4>
             {{ article.category.name }}
-            <h4> - Tags </h4>
+            <h4> - {{ 'tags.name' | trans }} </h4>
             {% for tag in article.tags %}
                 {{ tag.name }}
             {% endfor %}
-            <h4> - Contenu </h4>
+            <h4> - {{ 'content.name' |trans }} </h4>
             <p>{{ article.content }}</p>
         </div>
         <a class="btn btn-primary" href="{{ path('blog_article',{'slug': article.slug, 'id': article.id}) }}">Go !</a>
     {% else %}
-        Aucun article trouvé.
+        {{ 'article.not.found' | trans }}
     {% endfor %}
     <a class="btn btn-primary" href="{{ path('app_index') }}">
-        Back to homepage
+        {{ 'back.home' | trans }}
     </a>
 
 {% endblock %}

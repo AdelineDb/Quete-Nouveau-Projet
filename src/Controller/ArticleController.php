@@ -22,7 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article_index", methods={"GET"})
+     * @Route({"fr": "/",
+     *     "en": "/",
+     *     "es": "/"}, name="article_index", methods={"GET"})
      */
     public function index(ArticleRepository $articleRepository): Response
     {
@@ -33,7 +35,9 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @Route({"fr": "/nouveau",
+     *     "en": "/new",
+     *     "es": "/crear"}, name="article_new", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
@@ -80,7 +84,9 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/edit", name="article_edit", methods={"GET","POST"})
+     * @Route({"fr": "/{slug}/modifier",
+     *     "en": "/{slug}/edit",
+     *     "es": "/{slug}/modificar"}, name="article_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
@@ -123,7 +129,9 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/favorite", name="article_favorite", methods={"GET","POST"})
+     * @Route({"fr": "/{id}/favori",
+     *     "en": "/{id}/favorite",
+     *     "es": "/{id}/preferido"}, name="article_favorite", methods={"GET","POST"})
      */
     public function favorite(Request $request, Article $article, ObjectManager $entityManager, User $user)
     {

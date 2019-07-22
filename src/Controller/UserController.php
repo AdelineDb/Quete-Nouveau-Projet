@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route({"fr": "/utilisateur",
+ *     "en": "/user",
+ *     "es": "/usuario"})
  */
 class UserController extends AbstractController
 {
@@ -28,7 +30,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route({"fr": "/nouveau",
+     *     "en": "/new",
+     *     "es": "/crear"}, name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -61,7 +65,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route({"fr": "/{id}/modifier",
+     *     "en": "/{id}/edit",
+     *     "es": "/{id}/modificar"}, name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {

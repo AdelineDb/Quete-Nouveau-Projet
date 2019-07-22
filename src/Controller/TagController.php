@@ -12,7 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/tag")
+ * @Route({"fr": "/tags",
+ *     "en": "/tags",
+ *     "es": "/tags"})
  */
 class TagController extends AbstractController
 {
@@ -29,7 +31,9 @@ class TagController extends AbstractController
 
 
     /**
-     * @Route("/new", name="tag_new", methods={"GET","POST"})
+     * @Route({"fr": "/nouveau",
+     *     "en": "/new",
+     *     "es": "/crear"}, name="tag_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -67,7 +71,9 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="tag_edit", methods={"GET","POST"})
+     * @Route({"fr": "/{id}/modifier",
+     *     "en": "/{id}/edit",
+     *     "es": "/{id}/modificar"}, name="tag_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Tag $tag): Response
     {

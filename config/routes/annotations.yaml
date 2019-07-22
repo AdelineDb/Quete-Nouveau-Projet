@@ -1,3 +1,11 @@
+dispatch_lang:
+  path: /
+  controller: App\Controller\DefaultController::dispatch
+
+
 controllers:
-    resource: ../../src/Controller/
-    type: annotation
+  resource: ../../src/Controller/
+  type: annotation
+  prefix: /{_locale}
+  requirements:
+    _locale: fr|es|en

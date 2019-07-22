@@ -3,20 +3,20 @@
 {% block title %}Home Page{% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur mon blog</h1>
+    <h1>{{ 'welcome' | trans }}</h1>
 
     <div>
     <a href="{{ path('blog_index') }}">
-        Tous les articles
+        {{ 'all.articles' | trans }}
     </a>
     </div>
 
     <div>
-    <a href="{{ path('category_index') }}">Toutes les catégories</a>
+    <a href="{{ path('category_index') }}">{{ 'all.categories' | trans }}</a>
     </div>
 
     <div>
-    <a href="{{ path('tag_index') }}">Tous les tags</a>
+    <a href="{{ path('tag_index') }}">{{ 'all.tags' |trans }}</a>
     </div>
 
 {% endblock %}

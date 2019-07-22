@@ -17,15 +17,13 @@ use Symfony\Component\HttpFoundation\Response;
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/blog", name="blog_index")
+     * @Route({"fr": "/blog/",
+     *     "en": "/blog/",
+     *     "es": "/blog/"}, name="blog_index")
      * @return Response
      */
     public function index(Request $request): Response
     {
-        /* return new Response(
-             '<html><body>Blog Index</body></html>'
-         ); */
-
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
             ->findAllWithCategoriesAndTagsAndAuthors();
@@ -51,7 +49,9 @@ class BlogController extends AbstractController
 
     /**
      * @param string $slug
-     * @Route("/blog/show/{slug}/{id}",
+     * @Route({"fr": "/blog/visualiser/{slug}/{id}",
+     *     "en": "/blog/show/{slug}/{id}",
+     *     "es": "/blog/visualizar/{slug}/{id}"},
      *     requirements={"slug"="[a-z0-9-]+"},
      *     name="blog_article")
      * @return Response
@@ -69,10 +69,10 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @param string $categoryName The slugger
-     *
-     * @Route("/blog/category/{name}",
-     *     name="blog_category")
+     * @Route({"fr": "/blog/categorie/{name}",
+     *     "en": "/blog/category/{name}",
+     *     "es": "/blog/categoria/{name}"},
+     *     name="blog_category", methods={"GET", "POST"})
      * @return Response A response instance
      */
     public function showByCategory(Category $category): Response
@@ -80,7 +80,7 @@ class BlogController extends AbstractController
 
         if (!$category) {
             throw $this->createNotFoundException(
-                'No article with ' . $category . ' category, found.'
+                'No article with category found.'
             );
         }
 

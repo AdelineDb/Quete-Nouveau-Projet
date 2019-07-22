@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="es" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="CDjx2ju" resname="hello_username">
+        <source>hello_username</source>
+        <target>Hola username</target>
+      </trans-unit>
+      <trans-unit id="Q7UTU9q" resname="account.logout">
+        <source>account.logout</source>
+        <target>Desconectarse</target>
+      </trans-unit>
+      <trans-unit id="E_t5j6Q" resname="account.login">
+        <source>account.login</source>
+        <target>Conectarse</target>
+      </trans-unit>
+      <trans-unit id="bORk486" resname="article.name">
+        <source>article.name</source>
+        <target>Articulos</target>
+      </trans-unit>
+      <trans-unit id="oKr0OQU" resname="choose.language">
+        <source>choose.language</source>
+        <target>Escoger una idioma</target>
+      </trans-unit>
+      <trans-unit id="zENX5Rk" resname="category.name">
+        <source>category.name</source>
+        <target>Categoria</target>
+      </trans-unit>
+      <trans-unit id="6EqnkD4" resname="tags.name">
+        <source>tags.name</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="N1RH8zp" resname="auteurs.name">
+        <source>auteurs.name</source>
+        <target>Autors</target>
+      </trans-unit>
+      <trans-unit id="YqidqKM" resname="blog.index">
+        <source>blog.index</source>
+        <target>blog index</target>
+      </trans-unit>
+      <trans-unit id="irtRFKc" resname="all.articles">
+        <source>all.articles</source>
+        <target>Todos los articulos</target>
+      </trans-unit>
+      <trans-unit id="ZhBbNcS" resname="content.name">
+        <source>content.name</source>
+        <target>Contenido</target>
+      </trans-unit>
+      <trans-unit id="MOcnLcI" resname="article.not.found">
+        <source>article.not.found</source>
+        <target>Articulo no encontrado</target>
+      </trans-unit>
+      <trans-unit id="6GKWFos" resname="back.home">
+        <source>back.home</source>
+        <target>Vuelta al inicio</target>
+      </trans-unit>
+      <trans-unit id="KA1Eqx6" resname="welcome">
+        <source>welcome</source>
+        <target>Bienvenidos</target>
+      </trans-unit>
+      <trans-unit id="zBNbGVD" resname="all.categories">
+        <source>all.categories</source>
+        <target>Todas las categorias</target>
+      </trans-unit>
+      <trans-unit id="VGxucuP" resname="all.tags">
+        <source>all.tags</source>
+        <target>Todos los tags</target>
+      </trans-unit>
+      <trans-unit id="TqFAWIF" resname="home">
+        <source>home</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="ACT_ozK" resname="categories.name">
+        <source>categories.name</source>
+        <target>Categorias</target>
+      </trans-unit>
+      <trans-unit id="Rqbr8Ay" resname="myblog">
+        <source>myblog</source>
+        <target>Mio blog !</target>
+      </trans-unit>
+      <trans-unit id="Iasdgr0" resname="article.title">
+        <source>article.title</source>
+        <target>Titulo</target>
+      </trans-unit>
+      <trans-unit id="F1o8xft" resname="article.content">
+        <source>article.content</source>
+        <target>Contenudo</target>
+      </trans-unit>
+      <trans-unit id="L23kToO" resname="article.slug">
+        <source>article.slug</source>
+        <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="jHzFINk" resname="article.author">
+        <source>article.author</source>
+        <target>Autor</target>
+      </trans-unit>
+      <trans-unit id="q0QOZnS" resname="article.category">
+        <source>article.category</source>
+        <target>Categoria</target>
+      </trans-unit>
+      <trans-unit id="1kNN5ZC" resname="article.show">
+        <source>article.show</source>
+        <target>Consultar</target>
+      </trans-unit>
+      <trans-unit id="W12cLaV" resname="article.edit">
+        <source>article.edit</source>
+        <target>Modificar</target>
+      </trans-unit>
+      <trans-unit id="hDalLdL" resname="no.article">
+        <source>no.article</source>
+        <target>No articulos encontrados</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

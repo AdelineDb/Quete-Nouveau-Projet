@@ -2,4 +2,6 @@
 
 require('../css/app.scss');
 
-console.log('Hello Webpack Encore');
+const $ = require('jquery');
+import 'popper.js'
+import 'bootstrap';
